@@ -14,7 +14,7 @@ export default () => {
   const runAnimation = () => {
 
     (Animated.timing(rotateAnim, {
-      toValue: 6.27,
+      toValue: 180,
       duration: 2000,
       useNativeDriver: true
     })).start();
@@ -26,7 +26,7 @@ export default () => {
         duration: 2000,
         useNativeDriver: true
       })).start();
-    }, 2000)
+    }, 500)
 
   }
 
@@ -36,19 +36,11 @@ export default () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={{
-          ...styles.logo,
-          transform: [
-            {
-              rotate: rotateAnim
-            }
-          ]
-
-        }}
+      <View
+        style={styles.logo}
       >
         <Logo width="180"/>
-      </Animated.View>
+      </View>
       <Animated.View 
         style={{
           opacity,

@@ -12,7 +12,7 @@ const Head = ({navigation, hasNotifications}) => {
     <View style={styles.head}>
       <Logo/>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Notifications")}
+        onPress={() => alert("Notifications")}
       >
         <View class={styles.notification}>
           <AntDesign 
