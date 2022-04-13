@@ -6,22 +6,22 @@ import { AntDesign } from '@expo/vector-icons';
 import Logo from "../assets/logo.svg";
 
 
-const Head = ({navigation, hasNotifications}) => {
+const Head = ({navigation, hasProducts}) => {
 
   return (
     <View style={styles.head}>
       <Logo/>
       <TouchableOpacity
-        onPress={() => alert("Notifications")}
+        onPress={() => navigation.navigate("Checkout")}
       >
         <View class={styles.notification}>
           <AntDesign 
-            name="notification" 
+            name="shoppingcart" 
             size={24} 
             color={Colors.blue}
           />
           {
-            hasNotifications && <View style={styles.notificationActive}></View>
+            hasProducts && <View style={styles.notificationActive}></View>
           }
         </View>
       </TouchableOpacity>

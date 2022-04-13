@@ -16,14 +16,26 @@ class AppDataProvider extends Component {
 
     get actions() {
         return {
-            getProducts: this.getProduts,
+          getProducts: this.getProduts,
+          toggleProduct: this.toggleProduct,
         };
     }
 
+    toggleProduct = (action, id) => {
+      if(action == "add"){
+        this.setState({
+          addedToCart: [...this.state.addedToCart, id]
+        })
+      } else (
+        this.setState({
+          addedToCart: this.state.addedToCart.filter(idCard => idCard != id)
+        })
+      )
+    }
     componentDidMount = () => {
       setTimeout(() => {
         this.setState({
-          products: AppData_MOCKS,
+          ...AppData_MOCKS,
           loading: false
         })
       }, 6000)
