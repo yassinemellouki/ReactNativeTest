@@ -10,20 +10,28 @@ const ProductCard = ({onPress, id, uri, name, image, price, currency, isAdded}) 
 
   let action = isAdded ? "remove" : "add";
 
-  console.log(id, isAdded, action)
-
   return (
     <TouchableHighlight
       onPress={() => onPress(action, id)}
       //disabled={isAdded}
       style={{
         ...styles.wrapper,
-        opacity: isAdded ? 0.4 : 1,
+        borderColor: isAdded ? Colors.green: Colors.gray
       }}
     >
       <View style={styles.container}>
-        <Image style={styles.imgBG} source={{uri: image}}/>
-        <View style={styles.content}>
+        <Image 
+          style={{
+            ...styles.imgBG,
+            opacity: isAdded ? 0.7 : 1,
+          }}
+          source={{uri: image}}
+        />
+        {isAdded && <Text style={styles.added}>Added</Text>}
+        <View style={{
+            ...styles.content,
+            opacity: isAdded ? 0.4 : 1,
+          }}>
           <Text style={styles.name}>{name}</Text>
           <View>
             <Text style={styles.price}>{price}{currency}</Text>
@@ -39,6 +47,9 @@ const styles = StyleSheet.create({
     width: "48%",
     height: hp(25),
     marginBottom: hp(1),
+    borderWidth: 3,
+    borderRadius: 3,
+    backgroundColor: Colors.blue
   },
   imgBG: {
     zIndex: 0,
@@ -53,15 +64,31 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "space-between",
   },
+  added: {
+    position: "absolute",
+    color: Colors.green,
+    fontSize: 22,
+    top: "45%",
+    right: "30%",
+    backgroundColor: Colors.white,
+    borderWidth: 1,
+    borderColor: Colors.snow
+  },
   name: {
     color: Colors.blue,
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    backgroundColor: Colors.white,
+    padding: 3,
+    alignSelf: "flex-start",
   },
   price: {
+    alignSelf: "flex-start",
     color: Colors.blueLight,
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    padding: 2,
+    backgroundColor: Colors.white
   }
 });
 

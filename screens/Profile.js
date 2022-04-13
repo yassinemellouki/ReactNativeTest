@@ -12,7 +12,7 @@ const ProfileScreen = ({navigation, store}) => {
 
   const renderItem = ({ item }, i) => {
     return (
-      <View key={i} style={styles.item}>
+      <View key={i+item.label} style={styles.item}>
         <Text style={styles.itemLabel}>{item.label} :</Text>
         <Text style={styles.itemValue}>{
           ((typeof item.value === "object") ? item.value.join(", ") : item.value)
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.white,
+    paddingHorizontal: wp(3),
     paddingVertical: hp(4),
   },
   avatar: {

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Colors } from "../styles";
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { SafeAreaView, View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, Image } from "react-native";
 import {AppDataConsumer} from "../contexts/appData.context"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Head from "../components/Head";
@@ -13,27 +13,59 @@ const HomeScreen = ({navigation, store, actions}) => {
 
   const {toggleProduct} = actions;
 
+  const totalPrice = () => {
+
+    let prices = [];
+
+    products.forEach(product => {
+      if(addedToCart.includes(product.id)) {
+        prices.push(product.price)
+      }
+      return;
+    })
+
+    return prices.reduce(function(acc, val) { return acc + val; }, 0);
+  }
+
+
+  const onCheckoutPress = () =>  {
+    const total = totalPrice();
+    if(total === 0) {
+      alert("Please add products to check out.");
+      return;
+    }
+    navigation.navigate("Checkout", {
+      products: addedToCart,
+      totalPrice: total,
+      currency
+    })
+  }
+
   const onProductPress = (action, id) => {
     toggleProduct(action, id)
   }
 
   return (
-    <View style={styles.container}>
-      <Head hasProducts={addedToCart.length === 0 ? false : true} navigation={navigation}/>
-      <ScrollView style={styles.scrollableContent}>
-        <View style={styles.cardsWrapper}>
-          {
-            products.map((product, i) => <ProductCard
-              key={i}
-              {...product}
-              isAdded={addedToCart.includes(product.id)}
-              onPress={onProductPress}
-              currency={currency}
-              />)
-          }
-        </View>
-      </ScrollView>
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Head 
+          hasProducts={addedToCart.length === 0 ? false : true}
+          onCheckoutPress={onCheckoutPress}/>
+        <ScrollView style={styles.scrollableContent}>
+          <View style={styles.cardsWrapper}>
+            {
+              products.map((product, i) => <ProductCard
+                key={i}
+                {...product}
+                isAdded={addedToCart.includes(product.id)}
+                onPress={onProductPress}
+                currency={currency}
+                />)
+            }
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   )
 
 }
@@ -42,14 +74,15 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     backgroundColor: Colors.white,
-    paddingHorizontal: wp(4),
-    paddingTop: hp(4)
+    paddingHorizontal: wp(3),
+    paddingBottom: hp(16)
   },
   head: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 17,
+    marginBottom: 8
   },
   notificationActive: {
     width: 12,
@@ -64,8 +97,6 @@ const styles = StyleSheet.create({
   },
   scrollableContent: {
     height: "100%",
-    paddingVertical: hp(3),
-    paddingHorizontal: hp(3),
   },
   cardsWrapper: {
     flex: 1,

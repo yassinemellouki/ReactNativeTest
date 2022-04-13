@@ -6,13 +6,13 @@ import { AntDesign } from '@expo/vector-icons';
 import Logo from "../assets/logo.svg";
 
 
-const Head = ({navigation, hasProducts}) => {
+const Head = ({onCheckoutPress, hasProducts}) => {
 
   return (
     <View style={styles.head}>
       <Logo/>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Checkout")}
+        onPress={onCheckoutPress}
       >
         <View class={styles.notification}>
           <AntDesign 

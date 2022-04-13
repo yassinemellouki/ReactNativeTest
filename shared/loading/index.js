@@ -9,8 +9,8 @@ export default () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
-  const [opacity, setOpacity] = useState(0);
-
+//  const [opacity, setOpacity] = useState(0);
+ 
   const runAnimation = () => {
 
     (Animated.timing(rotateAnim, {
@@ -20,7 +20,6 @@ export default () => {
     })).start();
 
     setTimeout(() => {
-      setOpacity(1);
       Animated.loop(Animated.timing(scaleAnim, {
         toValue: 1.5,
         duration: 2000,
@@ -43,7 +42,6 @@ export default () => {
       </View>
       <Animated.View 
         style={{
-          opacity,
           transform: [
             {
               scale: scaleAnim

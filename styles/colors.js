@@ -9,4 +9,5 @@ export default Colors = {
   gray: "#999",
   nickel: "#666666",
   snow: "#f4f4f4",
+  green: "#32CD32"
 }
